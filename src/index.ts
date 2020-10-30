@@ -33,9 +33,9 @@ export function Number(
   };
 }
 
-export const Object = (
-  definition: Omit<ObjectSchema, "type"> = {}
-): ObjectSchema => {
+export const Object = <TProperties extends Record<string, Schema<any>>>(
+  definition: Omit<ObjectSchema<TProperties>, "type"> = {}
+): ObjectSchema<TProperties> => {
   return {
     ...definition,
     type: "object"
@@ -49,35 +49,41 @@ export function String(options: Omit<StringSchema, "type"> = {}): StringSchema {
   };
 }
 
-export function Not(options: Schema): { not: Schema } {
+export function Not(options: Schema<any>): { not: Schema<any> } {
   return {
     not: options
   };
 }
 
-export function OneOf(options: Array<Schema>): { oneOf: Array<Schema> } {
+export function OneOf(
+  options: Array<Schema<any>>
+): { oneOf: Array<Schema<any>> } {
   return {
     oneOf: options
   };
 }
 
-export function AnyOf(...options: Array<Schema>): { anyOf: Array<Schema> } {
+export function AnyOf(
+  ...options: Array<Schema<any>>
+): { anyOf: Array<Schema<any>> } {
   return {
     anyOf: options
   };
 }
 
-export function AllOf(options: Array<Schema>): { allOf: Array<Schema> } {
+export function AllOf(
+  options: Array<Schema<any>>
+): { allOf: Array<Schema<any>> } {
   return {
     allOf: options
   };
 }
 
 export function IfThenElse(
-  ifValue: Schema,
-  thenValue: Schema,
-  elseValue: Schema
-): { if: Schema; then: Schema; else: Schema } {
+  ifValue: Schema<any>,
+  thenValue: Schema<any>,
+  elseValue: Schema<any>
+): { if: Schema<any>; then: Schema<any>; else: Schema<any> } {
   return {
     if: ifValue,
     then: thenValue,
