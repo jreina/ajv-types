@@ -109,3 +109,15 @@ export default {
   OneOf,
   String
 };
+
+export {
+  AnyOfSchema,
+  ArraySchema,
+  FormatSchema,
+  IntegerSchema,
+  NumberSchema,
+  ObjectSchema,
+  Schema,
+  StringFormat,
+  StringSchema
+} from "./types";
