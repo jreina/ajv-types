@@ -4,7 +4,6 @@ import {
   IntegerSchema,
   ObjectSchema,
   Schema,
-  StringFormat,
   StringSchema
 } from "./types";
 
@@ -113,9 +112,12 @@ export default {
 export {
   AnyOfSchema,
   ArraySchema,
+  BooleanSchema,
   FormatSchema,
   IntegerSchema,
+  MultipleTypeSchema,
   NumberSchema,
+  NullSchema,
   ObjectSchema,
   Schema,
   StringFormat,

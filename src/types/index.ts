@@ -1,8 +1,11 @@
 export type Schema =
   | ArraySchema
   | AnyOfSchema
+  | BooleanSchema
   | FormatSchema
   | IntegerSchema
+  | MultipleTypeSchema
+  | NullSchema
   | NumberSchema
   | ObjectSchema
   | StringSchema;
@@ -16,6 +19,15 @@ export type StringFormat =
   | "ipv4"
   | "ipv6"
   | "regex";
+
+export type AllowedTypeKeywords =
+  | "integer"
+  | "number"
+  | "string"
+  | "boolean"
+  | "array"
+  | "object"
+  | "null";
 
 export interface AnyOfSchema {
   anyOf: Array<Schema>;
@@ -72,7 +84,19 @@ export interface ArraySchema {
   contains?: Schema;
 }
 
+export interface BooleanSchema {
+  type: "boolean";
+}
+
+export interface NullSchema {
+  type: "null";
+}
+
 export interface FormatSchema {
-  type: 'string';
+  type: "string";
   format: StringFormat;
+}
+
+export interface MultipleTypeSchema {
+  type: Array<AllowedTypeKeywords>;
 }
