@@ -1,4 +1,4 @@
-export type Schema =
+export type Schema<TProperties extends Record<string, Schema<TProperties>>> =
   | ArraySchema
   | AnyOfSchema
   | BooleanSchema
@@ -7,7 +7,7 @@ export type Schema =
   | MultipleTypeSchema
   | NullSchema
   | NumberSchema
-  | ObjectSchema
+  | ObjectSchema<TProperties>
   | StringSchema;
 
 export type StringFormat =
@@ -30,19 +30,19 @@ export type AllowedTypeKeywords =
   | "null";
 
 export interface AnyOfSchema {
-  anyOf: Array<Schema>;
+  anyOf: Array<Schema<any>>;
 }
 
-export interface ObjectSchema {
+export interface ObjectSchema<TProperties extends Record<string, Schema<any>>> {
   type: "object";
   maxProperties?: number;
   minProperties?: number;
-  required?: Array<string>;
-  properties?: Record<string, Schema>;
-  patternProperties?: Record<string, Schema>;
-  additionalProperties?: Boolean | Schema;
-  dependencies?: Record<string, Array<string> | Schema>;
-  propertyNames?: Schema;
+  required?: Array<keyof TProperties>;
+  properties?: TProperties;
+  patternProperties?: Record<string, Schema<any>>;
+  additionalProperties?: Boolean | Schema<any>;
+  dependencies?: Record<string, Array<string> | Schema<any>>;
+  propertyNames?: Schema<any>;
   patternRequired?: Array<string>;
   enum?: Array<any>;
   const?: any;
@@ -79,9 +79,9 @@ export interface ArraySchema {
   minItems?: number;
   pattern?: string;
   uniqueItems?: boolean;
-  items?: Schema | Array<Schema>;
-  additionalItems?: boolean | Schema;
-  contains?: Schema;
+  items?: Schema<any> | Array<Schema<any>>;
+  additionalItems?: boolean | Schema<any>;
+  contains?: Schema<any>;
 }
 
 export interface BooleanSchema {
